@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Este URDF fue creado automáticamente por SolidWorks para el exportador URDF.
+     Originalmente creado por Stephen Brawner (brawner@gmail.com)
+     Versión de commit: 1.5.1-0-g916b5db  Versión de compilación: 1.5.7152.31018
+     Para más información, visita: http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="Seguidor_linea_robot">
+    <!-- Elemento raíz que define el robot, nombrado "Seguidor_linea_robot" -->
+
+    <link name="world"/>
+    <!-- Define el link del mundo, que sirve como referencia global para el robot -->
+
+    <link name="base_link">
+        <!-- Link principal del robot -->
+        <visual>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_1.stl"/>
+                <!-- Carga un modelo 3D del link desde un archivo STL -->
+            </geometry>
+            <material name="">
+                <color rgba="1 0 0 1" />
+                <!-- Define el color del link como rojo, opaco -->
+            </material>
+        </visual> 
+    </link>
+
+    <link name="Link_1">
+        <!-- Primer link del robot -->
+        <visual>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_2.stl"/>
+                <!-- Carga el modelo 3D del Link_1 desde un archivo STL -->
+            </geometry>
+            <material name="">
+                <color rgba="0 0 1 1" />
+                <!-- Define el color del link como azul, opaco -->
+            </material>
+        </visual> 
+        <collision>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_2.stl"/>
+                <!-- Define la geometría para la colisión usando el mismo modelo -->
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="Link_2">
+        <!-- Segundo link del robot -->
+        <visual>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_3.stl"/>
+                <!-- Carga el modelo 3D del Link_2 desde un archivo STL -->
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 0.5" />
+                <!-- Define el color del link como verde, semi-transparente -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_3.stl"/>
+                <!-- Define la geometría para la colisión usando el mismo modelo -->
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="Link_3">
+        <!-- Tercer link del robot -->
+        <visual>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_4.stl"/>
+                <!-- Carga el modelo 3D del Link_3 desde un archivo STL -->
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 0.5" />
+                <!-- Define el color del link como verde, semi-transparente -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://modelo_robot/meshes/Ensamble_4.stl"/>
+                <!-- Define la geometría para la colisión usando el mismo modelo -->
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="fixed" type="fixed">
+        <!-- Joint que conecta el mundo con el base_link, sin movimiento -->
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 -20" rpy="0 0 0"/>
+        <!-- Define la posición del joint en coordenadas (x, y, z) y orientación (roll, pitch, yaw) -->
+        <axis xyz="0 0 1" />
+        <!-- El eje de rotación es el eje Z -->
+    </joint>
+
+    <joint name="Eslabon_Base" type="revolute">
+        <!-- Joint que permite el movimiento entre base_link y Link_1 -->
+        <parent link="base_link"/>
+        <child link="Link_1"/>
+        <origin xyz="0 0 20" rpy="0 0 0"/>
+        <!-- Define la posición del joint -->
+        <axis xyz="0 0 1"/>
+        <!-- El eje de rotación es el eje Z -->
+        <!-- Este link tiene su eje en Z y va desde -90 a 90 grados -->
+        <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5"/>
+        <!-- Define los límites de rotación, esfuerzo y velocidad del joint -->
+    </joint>
+
+    <joint name="Eslabon_1" type="revolute">
+        <!-- Joint que permite el movimiento entre Link_1 y Link_2 -->
+        <parent link="Link_1"/>
+        <child link="Link_2"/>
+        <origin xyz="13.5 20 28" rpy="0 0 0"/> 
+        <!-- Define la posición del joint -->
+        <axis xyz="1 0 0"/>
+        <!-- El eje de rotación es el eje X -->
+        <!-- Este link tiene su eje en X y va desde 90 a 270 grados -->
+        <limit lower="1.57" upper="4.71" effort="0" velocity="0.5"/>
+        <!-- Define los límites de rotación, esfuerzo y velocidad del joint -->
+    </joint>
+
+    <joint name="Eslabon_2" type="revolute">
+        <!-- Joint que permite el movimiento entre Link_2 y Link_3 -->
+        <parent link="Link_2"/>
+        <child link="Link_3"/>
+        <origin xyz="20 20 28" rpy="0 0 0"/> 
+        <!-- Define la posición del joint -->
+        <axis xyz="1 0 0"/>
+        <!-- El eje de rotación es el eje X -->
+        <!-- Este link tiene su eje en X y va desde -90 a 90 grados -->
+        <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5"/>
+        <!-- Define los límites de rotación, esfuerzo y velocidad del joint -->
+    </joint>
+
+  <!--
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.010085 -7.8763E-06 -0.0066048"
+        rpy="0 0 0" />
+      <mass
+        value="0.12859" />
+      <inertia
+        ixx="5.2146E-05"
+        ixy="-1.2223E-19"
+        ixz="2.9403E-20"
+        iyy="0.00017957"
+        iyz="1.8099E-14"
+        izz="0.00022799" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 0.3" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="Rueda_izquierda_link">
+    <inertial>
+      <origin
+        xyz="8.9146E-10 -3.2512E-08 -0.011873"
+        rpy="0 0 0" />
+      <mass
+        value="0.021404" />
+      <inertia
+        ixx="8.6283E-06"
+        ixy="-6.4381E-11"
+        ixz="-1.062E-13"
+        iyy="8.6269E-06"
+        iyz="-9.8999E-12"
+        izz="1.4515E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_izquierda_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_izquierda_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="Rueda_izquierda_joint"
+    type="continuous">
+    <origin
+      xyz="-0.033259 0.08025 -0.01375"
+      rpy="-1.5708 0.042481 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_izquierda_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      effort="100"
+      velocity="100" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+
+  <link
+    name="Rueda_derecha_link">
+    <inertial>
+      <origin
+        xyz="-8.9146E-10 -3.2512E-08 0.011873"
+        rpy="0 0 0" />
+      <mass
+        value="0.021404" />
+      <inertia
+        ixx="8.6283E-06"
+        ixy="6.4381E-11"
+        ixz="-1.062E-13"
+        iyy="8.6269E-06"
+        iyz="9.8999E-12"
+        izz="1.4515E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_derecha_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_derecha_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Rueda_derecha_joint"
+    type="continuous">
+    <origin
+      xyz="-0.033259 -0.08025 -0.01375"
+      rpy="1.5708 0.042481 -3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_derecha_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      effort="100"
+      velocity="100" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Base_castor_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.002" />
+      <inertia
+        ixx="0.0001"
+        ixy="0"
+        ixz="0"
+        iyy="0.0001"
+        iyz="0"
+        izz="0.0001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Base_castor_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Base_castor_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Base_castor_joint"
+    type="continuous">
+    <origin
+      xyz="0.072581 0 -0.0025"
+      rpy="-3.1408 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Base_castor_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      effort="100"
+      velocity="100" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Rueda_castor_link">
+    <inertial>
+      <origin
+        xyz="6.93889390390723E-18 -2.62037475051713E-11 -2.77710070911708E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.00828739992319076" />
+      <inertia
+        ixx="6.3926680927577E-07"
+        ixy="-7.31657239076889E-23"
+        ixz="4.99800544060975E-23"
+        iyy="6.39299912774584E-07"
+        iyz="3.50834634007177E-09"
+        izz="1.01108533248037E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_castor_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://modelo_robot/meshes/Rueda_castor_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Rueda_castor_joint"
+    type="continuous">
+    <origin
+      xyz="0.015014 -0.00012272 0.02296"
+      rpy="0 -1.57 1.5708" />
+    <parent
+      link="Base_castor_link" />
+    <child
+      link="Rueda_castor_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      effort="100"
+      velocity="100" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  -->
+</robot>
