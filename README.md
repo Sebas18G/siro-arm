@@ -70,56 +70,77 @@ Estructura de Archivos
 
 En tu paquete, necesitarás crear archivos de lanzamiento (launch), URDF y modelos en STL. Aquí hay una descripción general de la estructura de archivos que debes crear:
 
-go
-
-nombre_del_paquete/
-├── CMakeLists.txt
-├── package.xml
-├── launch/
-│   └── tu_lanzador.launch.py
-├── urdf/
-│   └── modelo_robot.urdf
-└── models/
-    └── modelo_robot.stl
-
 Archivos de Lanzamiento
 
-En el directorio launch/, crea un archivo tu_lanzador.launch.py para iniciar tu simulación. Aquí hay un ejemplo básico:
+# Explicación del Código de Lanzamiento en ROS 2
 
-python
+Este documento describe un script de lanzamiento en ROS 2 diseñado para cargar un modelo de robot definido en un archivo URDF y para iniciar varios nodos necesarios para su funcionamiento. Estos nodos incluyen el `robot_state_publisher`, el `joint_state_publisher`, el `joint_state_publisher_gui`, y `rviz2`.
 
-from launch import LaunchDescription
-from launch_ros.actions import Node
+## Estructura del Código
 
-def generate_launch_description():
-    return LaunchDescription([
-        Node(
-            package='nombre_del_paquete',
-            executable='nombre_del_nodo',
-            output='screen',
-        ),
-    ])
+### Importaciones
 
-Archivo URDF
+El script comienza importando las bibliotecas necesarias. Se utilizan módulos de lanzamiento y ROS 2 para crear y gestionar el lanzamiento de nodos, así como herramientas para manejar rutas de archivos. También se importa una función que permite obtener la ruta compartida de un paquete específico en ROS.
 
-Crea tu archivo modelo_robot.urdf en el directorio urdf/. Este archivo debe contener la descripción de tu robot, incluyendo los modelos en STL.
-Modelos en STL
+### Función Principal
 
-Asegúrate de que los modelos STL que has creado en Autodesk Inventor estén en el directorio models/.
-Uso
+La función principal, denominada `generate_launch_description`, se encarga de generar y devolver una descripción de lanzamiento. Esta descripción define qué nodos se ejecutarán y cómo se configurarán.
 
-    Lanza el nodo de RViz:
+### Cargar el Archivo URDF
 
-    bash
+Dentro de la función principal, se define el nombre del archivo URDF que describe el modelo del robot. Luego, se construye la ruta a este archivo utilizando la función que obtiene la ruta compartida del paquete correspondiente. Posteriormente, se abre el archivo y se lee su contenido, que se almacena en una variable que representa la descripción del robot.
 
-ros2 run rviz2 rviz2
+### Nodos de Lanzamiento
 
-Carga el archivo de configuración de RViz: En RViz, carga el archivo de configuración (.rviz) que se incluye en este repositorio para visualizar el robot.
+El script define varios nodos que se iniciarán al ejecutar el lanzamiento:
 
-Inicia la simulación:
+1. **Nodo `robot_state_publisher`:** Este nodo es responsable de publicar el estado del robot en el sistema. Utiliza la descripción del robot que fue leída del archivo URDF para transmitir información sobre su estado actual.
 
-bash
+2. **Nodo `joint_state_publisher`:** Este nodo se encarga de publicar los estados de las articulaciones del robot. Se activa solo si no se ha especificado un argumento que permita activar una interfaz gráfica.
 
-ros2 launch nombre_del_paquete tu_lanzador.launch.py
+3. **Nodo `joint_state_publisher_gui`:** Este nodo proporciona una interfaz gráfica que permite a los usuarios manipular y publicar los estados de las articulaciones del robot de manera más intuitiva. Se activa únicamente si se especifica el argumento que indica que se desea utilizar la interfaz gráfica.
 
-Interactúa con la simulación: Usa los controles en RViz para mover y controlar el robot. Puedes probar diferentes algoritmos de control o modificar la configuración del robot.
+4. **Nodo `rviz2`:** Este nodo inicia RViz, que es una herramienta de visualización en 3D para ROS. Permite la visualización del robot y de sus estados, lo que es fundamental para la interacción y el análisis del comportamiento del robot en un entorno visual.
+
+### Retorno de la Descripción de Lanzamiento
+
+Al final de la función, se devuelve una descripción de lanzamiento que incluye el argumento para activar o desactivar la interfaz gráfica, junto con los nodos definidos anteriormente. Esto permite una configuración flexible y fácil de usar al momento de iniciar el sistema.
+# Explicación del Archivo URDF para el Robot "Seguidor_linea_robot"
+
+Este documento describe el archivo URDF (Unified Robot Description Format) que define la estructura y los componentes del robot llamado "Seguidor_linea_robot". Este URDF fue generado automáticamente por SolidWorks utilizando un exportador específico. A continuación, se explican las distintas secciones y elementos que componen el archivo.
+
+## Estructura General
+
+El archivo comienza con la definición del robot, nombrado "Seguidor_linea_robot". A continuación, se enumeran los componentes del robot, incluidos los enlaces (links) y las articulaciones (joints). Estos elementos describen tanto la geometría visual del robot como su funcionalidad mecánica.
+
+### Links
+
+1. **Link del Mundo**: Se define un enlace denominado "world" que actúa como referencia global para el robot. Este enlace sirve como el entorno de referencia para todos los demás componentes del robot.
+
+2. **Base Link**: Este es el enlace principal del robot. Incluye:
+   - Un modelo 3D cargado desde un archivo STL, que define la geometría visual del enlace.
+   - Un color que lo representa en el entorno de visualización, definido como rojo y opaco.
+
+3. **Link_1**: Este es el primer enlace del robot que se conecta al enlace base. Sus características incluyen:
+   - Un modelo 3D cargado desde un archivo STL.
+   - Un color azul, opaco, y su geometría de colisión se define utilizando el mismo modelo.
+
+4. **Link_2**: Este es el segundo enlace del robot. Al igual que Link_1, incluye:
+   - Un modelo 3D de su geometría.
+   - Un color verde, semi-transparente, y su geometría de colisión se define con el mismo modelo.
+
+5. **Link_3**: Este es el tercer enlace del robot. Sus características son similares a las de Link_2, con:
+   - Un modelo 3D cargado desde un archivo STL.
+   - Un color verde, semi-transparente, y una geometría de colisión definida con el mismo modelo.
+
+### Joints
+
+1. **Joint Fijo**: Este joint conecta el mundo con el `base_link`. No permite movimiento, y su posición y orientación se definen en coordenadas XYZ y roll, pitch y yaw. El eje de rotación se establece en el eje Z.
+
+2. **Joint Eslabon_Base**: Este joint permite el movimiento entre el `base_link` y `Link_1`. Es un joint de tipo revoluto que permite rotación alrededor del eje Z. Sus límites de rotación están definidos para permitir movimientos de -90 a 90 grados.
+
+3. **Joint Eslabon_1**: Este joint conecta `Link_1` y `Link_2`. También es un joint de tipo revoluto, pero permite rotación alrededor del eje X. Sus límites de rotación son de 90 a 270 grados.
+
+4. **Joint Eslabon_2**: Este joint permite el movimiento entre `Link_2` y `Link_3`. Similar a Eslabon_1, es un joint de tipo revoluto que permite rotación alrededor del eje X. Sus límites de rotación van de -90 a 90 grados.
+
+
