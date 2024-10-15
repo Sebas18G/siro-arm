@@ -1,76 +1,8 @@
-# Simulación de Robot en RViz
-
-Este proyecto simula un robot en RViz utilizando **URDF** (Unified Robot Description Format) y modelos 3D creados en **Autodesk Inventor** en formato **STL**. La simulación permite visualizar y analizar el comportamiento del robot en un entorno virtual, facilitando el desarrollo y prueba de algoritmos de control y navegación.
-
 ## Descripción del Proyecto
 
 El robot simulado en este proyecto está diseñado para realizar tareas específicas, como mover objetos, seguir trayectorias y evitar obstáculos. Los modelos 3D se han creado en Autodesk Inventor y se han exportado a formato STL, que es compatible con **ROS 2**.
 
-## Instalación de ROS 2 Foxy
-
-Para comenzar con el proyecto, primero necesitas instalar **ROS 2 Foxy**. Puedes seguir la guía oficial de instalación [aquí](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html).
-
-### Pasos para instalar ROS 2 Foxy
-
-1. **Actualiza tu sistema:**
-   ```bash
-   sudo apt update && sudo apt upgrade
-
-    Instala las dependencias necesarias:
-
-    bash
-
-sudo apt install -y curl gnupg2 lsb-release
-
-Configura las claves y repositorios de ROS 2:
-
-bash
-
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list'
-
-Instala ROS 2 Foxy:
-
-bash
-
-sudo apt update
-sudo apt install ros-foxy-desktop
-
-Configura tu entorno:
-
-bash
-
-    echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
-    source ~/.bashrc
-
-Creación del Paquete
-
-Después de instalar ROS 2, debes crear un paquete para tu proyecto. Aquí hay un ejemplo de cómo hacerlo:
-
-    Crea un espacio de trabajo:
-
-    bash
-
-mkdir -p ~/ros2_ws/src
-cd ~/ros2_ws/src
-
-Crea un nuevo paquete:
-
-bash
-
-ros2 pkg create --build-type ament_cmake nombre_del_paquete
-
-Navega a tu nuevo paquete:
-
-bash
-
-    cd nombre_del_paquete
-
-Estructura de Archivos
-
-En tu paquete, necesitarás crear archivos de lanzamiento (launch), URDF y modelos en STL. Aquí hay una descripción general de la estructura de archivos que debes crear:
-
-Archivos de Lanzamiento
+Para este proyecto se esta utilizando ROS2 Foxy
 
 # Explicación del Código de Lanzamiento en ROS 2
 
@@ -143,4 +75,32 @@ El archivo comienza con la definición del robot, nombrado "Seguidor_linea_robot
 
 4. **Joint Eslabon_2**: Este joint permite el movimiento entre `Link_2` y `Link_3`. Similar a Eslabon_1, es un joint de tipo revoluto que permite rotación alrededor del eje X. Sus límites de rotación van de -90 a 90 grados.
 
+# Simulación de Robot en RViz
 
+Este proyecto simula un robot en RViz utilizando **URDF** (Unified Robot Description Format) y modelos 3D creados en **Autodesk Inventor** en formato **STL**. La simulación permite visualizar y analizar el comportamiento del robot en un entorno virtual, facilitando el desarrollo y prueba de algoritmos de control y navegación.
+
+## Requisitos
+
+- ROS2 instalado (preferiblemente la distribución más reciente)
+- RViz
+- Dependencias de ROS2 para trabajar con URDF y STL
+
+## Instrucciones de Compilación y Ejecución
+
+1. Compila el paquete utilizando el comando `colcon build`.
+2. Arranca el entorno de ROS2 ejecutando `source install/setup.bash`.
+3. Lanza la simulación en RViz con el comando `ros2 launch modelo_robot display_robot.py`.
+
+## Descripción del Proyecto
+
+- **URDF**: El formato URDF se utiliza para describir la estructura del robot, sus enlaces, uniones y características físicas.
+- **Modelos 3D**: Los modelos en formato STL creados en Autodesk Inventor se utilizan para proporcionar una representación visual detallada del robot en RViz.
+- **Análisis del Comportamiento**: La simulación permite observar el comportamiento del robot y realizar pruebas de navegación y control en un entorno virtual antes de la implementación en el mundo real.
+
+
+## Adecuacion del RVIZ
+
+1. Al ejecutar el archivo de lanzamiento, es común que aparezcan errores en la interfaz de RViz. Para solucionarlos, primero nos dirigimos a la sección "Display" y configuramos la opción "Fixed Frame". En este campo, seleccionamos "world", que indica la posición inicial en el entorno.
+2. A continuación, agregamos el modelo de nuestro robot haciendo clic en el botón "Add" y seleccionando "RobotModel".
+3. Al expandir las opciones de "RobotModel", configuramos la opción "Description Source" estableciéndola en "Topic". Luego, en "Description Topic", seleccionamos la opción "/robot_description".
+4. Con estos pasos, deberíamos poder visualizar correctamente las piezas del robot y tener la interfaz de RViz configurada adecuadamente.
