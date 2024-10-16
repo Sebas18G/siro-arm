@@ -1,0 +1,21 @@
+[0.510s] Invoking command in '/home/administrador/repo_siro/siro-robot/src/modelo_robot': PYTHONPATH=/home/administrador/repo_siro/siro-robot/build/modelo_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/administrador/repo_siro/siro-robot/install/modelo_robot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/modelo_robot build --build-base /home/administrador/repo_siro/siro-robot/build/modelo_robot/build install --record /home/administrador/repo_siro/siro-robot/build/modelo_robot/install.log --install-scripts $base/lib/modelo_robot --single-version-externally-managed install_data
+[0.679s] running egg_info
+[0.680s] writing ../../build/modelo_robot/modelo_robot.egg-info/PKG-INFO
+[0.680s] writing dependency_links to ../../build/modelo_robot/modelo_robot.egg-info/dependency_links.txt
+[0.680s] writing entry points to ../../build/modelo_robot/modelo_robot.egg-info/entry_points.txt
+[0.680s] writing requirements to ../../build/modelo_robot/modelo_robot.egg-info/requires.txt
+[0.681s] writing top-level names to ../../build/modelo_robot/modelo_robot.egg-info/top_level.txt
+[0.706s] reading manifest file '../../build/modelo_robot/modelo_robot.egg-info/SOURCES.txt'
+[0.707s] writing manifest file '../../build/modelo_robot/modelo_robot.egg-info/SOURCES.txt'
+[0.708s] running build
+[0.708s] running build_py
+[0.708s] running install
+[0.709s] running install_lib
+[0.710s] running install_data
+[0.710s] copying urdf/Seguidor_linea_robot.urdf -> /home/administrador/repo_siro/siro-robot/install/modelo_robot/share/modelo_robot/urdf
+[0.710s] running install_egg_info
+[0.712s] removing '/home/administrador/repo_siro/siro-robot/install/modelo_robot/lib/python3.8/site-packages/modelo_robot-0.0.0-py3.8.egg-info' (and everything under it)
+[0.712s] Copying ../../build/modelo_robot/modelo_robot.egg-info to /home/administrador/repo_siro/siro-robot/install/modelo_robot/lib/python3.8/site-packages/modelo_robot-0.0.0-py3.8.egg-info
+[0.712s] running install_scripts
+[0.725s] writing list of installed files to '/home/administrador/repo_siro/siro-robot/build/modelo_robot/install.log'
+[0.738s] Invoked command in '/home/administrador/repo_siro/siro-robot/src/modelo_robot' returned '0': PYTHONPATH=/home/administrador/repo_siro/siro-robot/build/modelo_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/administrador/repo_siro/siro-robot/install/modelo_robot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/modelo_robot build --build-base /home/administrador/repo_siro/siro-robot/build/modelo_robot/build install --record /home/administrador/repo_siro/siro-robot/build/modelo_robot/install.log --install-scripts $base/lib/modelo_robot --single-version-externally-managed install_data

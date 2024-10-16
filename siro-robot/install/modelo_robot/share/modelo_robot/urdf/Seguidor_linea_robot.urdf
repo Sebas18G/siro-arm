@@ -123,12 +123,12 @@
         <!-- Joint que permite el movimiento entre Link_2 y Link_3 -->
         <parent link="Link_2"/>
         <child link="Link_3"/>
-        <origin xyz="20 20 28" rpy="0 0 0"/> 
+        <origin xyz="-50 -50 -50" rpy="0 0 0"/> 
         <!-- Define la posición del joint -->
         <axis xyz="1 0 0"/>
         <!-- El eje de rotación es el eje X -->
-        <!-- Este link tiene su eje en X y va desde -90 a 90 grados -->
-        <limit lower="-1.57" upper="1.57" effort="0" velocity="0.5"/>
+        <!-- Este link tiene su eje en X y va desde 90 a 270 grados -->
+        <limit lower="1.57" upper="4.71" effort="0" velocity="0.5"/>
         <!-- Define los límites de rotación, esfuerzo y velocidad del joint -->
     </joint>
 
